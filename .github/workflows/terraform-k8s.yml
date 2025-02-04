@@ -34,6 +34,9 @@ jobs:
         run: |
           mkdir -p ~/.kube  # Creates the ~/.kube directory if it doesn't exist
           echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ~/.kube/config
+	  echo "${{ secrets.K8S_CLIENT_CERT }}" | base64 --decode > ~/.kube/client.crt
+	  echo "${{ secrets.K8S_CLIENT_KEY }}" | base64 --decode > ~/.kube/client.key
+	  echo "${{ secrets.K8S_CA_CERT }}" | base64 --decode > ~/.kube/ca.crt
 
       # Terraform init
       - name: Terraform Init
