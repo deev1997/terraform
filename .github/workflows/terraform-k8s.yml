@@ -1,0 +1,47 @@
+name: "Terraform and Kubernetes Integration"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Terraform
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: "1.5.7"  # Change this if necessary
+
+      # Set up kubectl
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          version: 'v1.21.0'
+
+      # Authenticate with Kubernetes Cluster (using kubeconfig)
+      - name: Set up kubeconfig
+        run: echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+
+      # Terraform init
+      - name: Terraform Init
+        run: terraform init
+
+      # Terraform plan
+      - name: Terraform Plan
+        run: terraform plan
+
+      # Terraform apply
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+
