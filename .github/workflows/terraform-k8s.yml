@@ -33,7 +33,7 @@ jobs:
       - name: Set up kubeconfig
         run: |
           mkdir -p ~/.kube  # Creates the ~/.kube directory if it doesn't exist
-          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config  # Writes the KUBECONFIG secret to the config file
+          echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ~/.kube/config
 
       # Terraform init
       - name: Terraform Init
