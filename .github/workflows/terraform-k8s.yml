@@ -31,10 +31,9 @@ jobs:
 
       # Authenticate with Kubernetes Cluster (using kubeconfig)
       - name: Set up kubeconfig
-  	run: |
-    	mkdir -p ~/.kube  # Creates the ~/.kube directory if it doesn't exist
-    	echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config  # Writes the KUBECONFIG secret to the config file
-
+        run: |
+          mkdir -p ~/.kube  # Creates the ~/.kube directory if it doesn't exist
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config  # Writes the KUBECONFIG secret to the config file
 
       # Terraform init
       - name: Terraform Init
